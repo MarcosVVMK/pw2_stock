@@ -1,3 +1,6 @@
+<?php
+    require_once 'models/Connection.php';
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -12,6 +15,8 @@
 <body>
 
     <?php
+
+        $connection = Connection::getInstance();
 
         include_once "components/navbar.php";
 
@@ -35,7 +40,6 @@
 
         }
 
-        
     ?>
 
 
