@@ -4,27 +4,27 @@ namespace models;
 
 class Stock
 {
-    private $id;
+    private $stockId;
 
     private $product;
 
     private $quantity;
 
-    function __construct( $id, Product $product, $quantity )
+    function __construct( $stockId, Product $product, $quantity )
     {
-        $this->id       = $id;
+        $this->stockId       = $stockId;
         $this->product  = $product;
         $this->quantity = $quantity;
     }
 
-    public function getId()
+    public function getStockId()
     {
-        return $this->id;
+        return $this->stockId;
     }
 
-    public function setId($id)
+    public function setStockId($stockId)
     {
-        $this->id = $id;
+        $this->stockId = $stockId;
     }
 
     public function getProduct()

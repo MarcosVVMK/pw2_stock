@@ -9,7 +9,7 @@ use models\Category;
  */
 class Product
 {
-    private $id;
+    private $productId;
 
     private $name;
 
@@ -19,22 +19,22 @@ class Product
 
     private $price;
 
-    function __contruct( $id, $name, $description, Category $category, $price ){
-        $this->id           = $id;
+    function __contruct( $productId, $name, $description, Category $category, $price ){
+        $this->$productId   = $productId;
         $this->name         = $name;
         $this->desciption   = $description;
         $this->category     = $category;
         $this->price        = $price;
     }
 
-    public function getId()
+    public function getProductId()
     {
-        return $this->id;
+        return $this->productId;
     }
 
-    public function setId($id)
+    public function setProductId($productId)
     {
-        $this->id = $id;
+        $this->productId = $productId;
     }
 
     public function getName()

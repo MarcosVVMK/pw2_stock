@@ -15,7 +15,7 @@ class Connection {
         if(self::$connection == null){
             try{
 
-                self::$connection = new PDO("mysql:host=".$host.";port=".$port.";dbname=". self::$database, self::$user, self::$password);
+                self::$connection = new PDO("mysql:host=".self::$host.";port=".self::$port.";dbname=". self::$database, self::$user, self::$password);
 
             }catch (PDOException $e) {
 
