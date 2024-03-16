@@ -24,7 +24,7 @@ CREATE TABLE stock
 CREATE TABLE login
 (
     loginId int PRIMARY KEY,
-    userName varchar(32),
+    name varchar(32),
     email varchar(32),
     password varchar(16)
 );

@@ -13,13 +13,13 @@
                 <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="?page=categories">Produtos</a>
+                <a class="nav-link" href="?page=products">Produtos</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="?page=categories">Categorias</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Preços</a>
+                <a class="nav-link" href="?page=login">Login</a>
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
