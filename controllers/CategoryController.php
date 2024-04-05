@@ -29,7 +29,8 @@ class CategoryController
             $connection = Connection::getInstance();
 
             $stmt = $connection->prepare("INSERT INTO category (name) VALUES (:name)");
-            $stmt = bindParam(":name", $category->getName());
+            $name = $category->getName();
+            $stmt->bindParam(":name", $name);
 
             $stmt->execute();
 
@@ -45,8 +46,10 @@ class CategoryController
             $connection = Connection::getInstance();
 
             $stmt = $connection->prepare("UPDATE category SET name = :name WHERE id = :id");
-            $stmt = bindParam(":name", $category->getName());
-            $stmt = bindParam(":id", $category->getId());
+            $name = $category->getName();
+            $id = $category->getId();
+            $stmt->bindParam(":name", $name);
+            $stmt->bindParam(":id", $id);
 
             $stmt->execute();
 
@@ -63,7 +66,7 @@ class CategoryController
             $connection = Connection::getInstance();
 
             $stmt = $connection->prepare("SELECT * FROM category WHERE id = :id");
-            $stmt = bindParam(":id", $id);
+            $stmt->bindParam(":id", $id);
 
             $stmt->execute();
 

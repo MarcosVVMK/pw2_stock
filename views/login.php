@@ -1,16 +1,12 @@
 <?php
-    require_once "../controllers/UserController.php";
+    use controllers\UserController;
 
     session_start();
 
-    $email = $_POST["email"];
-
-    $password = $_POST["password"];
-
-    if ( isset($email) && isset($password) )
+    if ( isset($_POST["email"]) && isset($_POST["password"]) )
     {
         $userController = new UserController();
-        $userController->login($email, $password );
+        $userController->login($_POST["email"], $_POST["password"] );
     }
 
 ?>
