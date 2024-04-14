@@ -1,3 +1,16 @@
+<?php
+require_once "controllers/CategoryController.php";
+require_once "models/Category.php";
+
+$controller = new CategoryController();
+$categories = $controller->findAll();
+
+// Verificar se existe uma mensagem definida na sessão
+if (isset($_SESSION['message'])) {
+    echo "<script>alert('" . $_SESSION['message'] . "')</script>";
+    unset($_SESSION['message']); // Limpar a variável de sessão após exibir o alerta
+}
+?>
 <div class="container mt-5">
     <div class="row">
         <div class="col">
@@ -6,32 +19,30 @@
                 <a href="?page=form_category" class="btn btn-success" role="button">Cadastrar</a>
             </div>
             <table class="table">
-                <thead class="thead-dark">
+                <thead>
                 <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Nome</th>
-                    <th scope="col">Ação</th>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Ações</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                </tr>
+                <?php  foreach ($categories as $category) : ?>
+                    <tr>
+                        <td><?php echo htmlspecialchars($category->getId()); ?></td>
+                        <td><?php echo htmlspecialchars($category->getName()); ?></td>
+                        <td>
+                            <a class="" href="?page=form_categoria&id=<?php echo $category->getId(); ?>">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            <a class="" href="?page=delete_categoria&id=<?php echo $category->getId(); ?>" onclick="return confirm('Tem certeza que deseja excluir esta categoria?')">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
                 </tbody>
             </table>
         </div>
     </div>
 </div>
-
