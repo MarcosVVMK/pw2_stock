@@ -1,27 +1,27 @@
 <?php
+require_once __DIR__ . "/../models/Connection.php";
+require_once __DIR__ . "/../models/User.php";
 
-namespace controllers;
+
 class UserController
 {
-    public function login( $email, $password )
+    public function login( $email, $password ): bool
     {
-
         try {
 
             $conn = Connection::getInstance();
-            var_dump("entrou2");
-            $stmt = $conn->prepare("SELECT * FROM login WHERE login = :login" );
-            $stmt->bindParam(":login", $email );
+
+            $stmt = $conn->prepare("SELECT * FROM login WHERE email = :email" );
+            $stmt->bindParam(":email", $email );
             $stmt->execute();
-            var_dump("entrou3");
 
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if ($result)
             {
                 $user = new User(
-                    $result["userId"],
-                    $result["userName"],
+                    $result["loginId"],
+                    $result["name"],
                     $result["email"],
                     $result["password"]
                 );
@@ -31,7 +31,7 @@ class UserController
                     $_SESSION['userId'] = $user->getUserId();
                     $_SESSION['name']   = $user->getName();
                     $_SESSION['email'] = $user->getEmail();
-                    header("Location: ../index.php");
+                    header("Location: ../dashboard.php");
                 }else{
                     $_SESSION['message'] = 'Senha incorreta!';
                 }
@@ -41,8 +41,9 @@ class UserController
             }
 
         }catch (PDOException $e){
-            var_dump("entrou catch");
             echo ("Erro ao buscar o usuário: " . $e->getMessage());
         }
+
+        return true;
     }
 }
