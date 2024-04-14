@@ -3,7 +3,7 @@
         <div class="col">
             <div class="d-flex justify-content-between mb-3">
                 <h1 class="text-center mb-0">Lista de Categorias</h1>
-                <a href="?pg=form_categoria" class="btn btn-success" role="button">Cadastrar</a>
+                <a href="?page=form_category" class="btn btn-success" role="button">Cadastrar</a>
             </div>
             <table class="table">
                 <thead class="thead-dark">

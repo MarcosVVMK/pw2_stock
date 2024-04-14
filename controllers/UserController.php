@@ -11,7 +11,7 @@ class UserController
 
             $conn = Connection::getInstance();
 
-            $stmt = $conn->prepare("SELECT * FROM login WHERE email = :email" );
+            $stmt = $conn->prepare("SELECT * FROM user WHERE email = :email" );
             $stmt->bindParam(":email", $email );
             $stmt->execute();
 
@@ -20,7 +20,7 @@ class UserController
             if ($result)
             {
                 $user = new User(
-                    $result["loginId"],
+                    $result["id"],
                     $result["name"],
                     $result["email"],
                     $result["password"]

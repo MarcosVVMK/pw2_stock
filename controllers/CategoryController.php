@@ -1,11 +1,6 @@
 <?php
-
-namespace controllers;
-
-use Connection;
-use models\Category;
-use PDO;
-use PDOException;
+require_once __DIR__ . "/../models/Connection.php";
+require_once __DIR__ . "/../models/Category.php";
 
 class CategoryController
 {
@@ -27,12 +22,13 @@ class CategoryController
     public function save(Category $category){
         try {
             $connection = Connection::getInstance();
-
-            $stmt = $connection->prepare("INSERT INTO category (name) VALUES (:name)");
             $name = $category->getName();
+            $stmt = $connection->prepare("INSERT INTO category (name) VALUES (:name)");
             $stmt->bindParam(":name", $name);
 
             $stmt->execute();
+
+            var_dump($stmt->errorInfo());
 
             return $this->findById($connection->lastInsertId());
 

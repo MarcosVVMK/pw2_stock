@@ -1,29 +1,29 @@
 CREATE TABLE category
 (
-    categoryId int PRIMARY KEY,
+    id INT NOT NULL AUTO_INCREMENT,
     name       VARCHAR(32)
 );
 
 CREATE TABLE product
 (
-    productId   int PRIMARY KEY,
+    id INT NOT NULL AUTO_INCREMENT,
     name        VARCHAR(32),
     description VARCHAR(256),
-    FOREIGN KEY (productId) REFERENCES category (categoryId),
+    FOREIGN KEY (id) REFERENCES category (id),
     price       DOUBLE
 
 );
 
 CREATE TABLE stock
 (
-    stockId  int PRIMARY KEY,
-    FOREIGN KEY (stockId) REFERENCES product (productId),
+    id INT NOT NULL AUTO_INCREMENT,
+    FOREIGN KEY (id) REFERENCES product (id),
     quantity int
 );
 
-CREATE TABLE login
+CREATE TABLE user
 (
-    loginId int PRIMARY KEY,
+    id INT NOT NULL AUTO_INCREMENT,
     name varchar(32),
     email varchar(32),
     password varchar(16)
