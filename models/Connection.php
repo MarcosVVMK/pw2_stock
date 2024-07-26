@@ -5,9 +5,9 @@
 class Connection {
 
     private static $connection = null;
-    private static $host =  "devilbox-mysql-1"; ##"10.5.10.10";
+    private static $host =  "127.0.0.1"; ##"10.5.10.10";
     private static $user = "root"; ##"desenv";
-    private static $password = "";##"123456";
+    private static $password = "root";##"123456";
     private static $database = "pw2_2024_marcos_matos";
     private static $port = "3306";
 
@@ -19,13 +19,12 @@ class Connection {
     {
     }
 
-    private function __wakeup()
+    public function __wakeup()
     {
     }
 
     public static function getInstance()
     {
-
 
         if(self::$connection == null){
             try{

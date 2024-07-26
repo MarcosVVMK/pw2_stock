@@ -28,8 +28,6 @@ class CategoryController
 
             $stmt->execute();
 
-            var_dump($stmt->errorInfo());
-
             return $this->findById($connection->lastInsertId());
 
         }catch (PDOException $e){

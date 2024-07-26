@@ -22,13 +22,8 @@ if (isset($_POST["name"])) {
         $categoryController->save($category);
     }
 
-    // Voltando pra tela anterior
-    header("Location: ?page=categories");
-
-    // Encerra a execução do script php
-    exit();
+    echo '<script type="text/javascript">window.location.href = "?page=categories";</script>';
 }
-
 ?>
 
 <div class="container mt-2">
