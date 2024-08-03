@@ -4,7 +4,7 @@ require_once __DIR__ . "/../controllers/CategoryController.php";
 // Inicia a sessão
 if (isset($_GET["categoryId"])) {
     $categoryController = new CategoryController();
-    $category = $categoryController->findById($_GET["id"]);
+    $category = $categoryController->findById($_GET["categoryId"]);
 }
 
 if (isset($_POST["name"])) {
@@ -23,7 +23,6 @@ if (isset($_POST["name"])) {
     }
 
     echo '<script type="text/javascript">window.location.href = "?page=categories";</script>';
-    exit();
 }
 ?>
 
