@@ -1,9 +1,4 @@
 <?php
-
-namespace models;
-
-use models\Category;
-
 /**
  * Model class of Product
  */
@@ -13,16 +8,17 @@ class Product
 
     private $name;
 
-    private $desciption;
+    private $description;
 
     private $category;
 
     private $price;
 
-    function __contruct( $productId, $name, $description, Category $category, $price ){
+    function __construct( $productId, $name, $description, Category $category, $price )
+    {
         $this->$productId   = $productId;
-        $this->name         = $name;
-        $this->desciption   = $description;
+        $this->name          = $name;
+        $this->description   = $description;
         $this->category     = $category;
         $this->price        = $price;
     }
@@ -47,14 +43,14 @@ class Product
         $this->name = $name;
     }
 
-    public function getDesciption()
+    public function getDescription()
     {
-        return $this->desciption;
+        return $this->description;
     }
 
-    public function setDesciption($desciption)
+    public function setDescription($description)
     {
-        $this->desciption = $desciption;
+        $this->description = $description;
     }
 
     public function getCategory()
@@ -77,4 +73,14 @@ class Product
         $this->price = $price;
     }
 
+    public function toString(): array
+    {
+        return [
+            "productId" => $this->productId,
+            "name" => $this->name,
+            "description" => $this->description,
+            "category" => $this->category,
+            "price" => $this->price
+        ];
+    }
 }

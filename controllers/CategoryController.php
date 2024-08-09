@@ -76,22 +76,22 @@ class CategoryController
     public function delete($id)
     {
         try {
-            $conexao = Conexao::getInstance();
+            $connection = Connection::getInstance();
 
             // Excluir a Categoria
-            $stmt = $conexao->prepare("DELETE FROM categoria WHERE id = :id");
+            $stmt = $connection->prepare("DELETE FROM categoria WHERE id = :id");
             $stmt->bindParam(":id", $id);
             $stmt->execute();
 
             if ($stmt->rowCount() > 0) {
-                $_SESSION['mensagem'] = 'Categoria excluída com sucesso!';
+                $_SESSION['message'] = 'Categoria excluída com sucesso!';
                 return true;
             } else {
-                $_SESSION['mensagem'] = 'A categoria não foi encontrada.';
+                $_SESSION['message'] = 'A categoria não foi encontrada.';
                 return false;
             }
         } catch (PDOException $e) {
-            $_SESSION['mensagem'] = 'Erro ao excluir a categoria: ' . $e->getMessage();
+            $_SESSION['message'] = 'Erro ao excluir a categoria: ' . $e->getMessage();
             return false;
         }
     }

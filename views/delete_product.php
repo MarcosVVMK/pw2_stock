@@ -7,8 +7,7 @@ if (isset($_GET["id"])) {
     $productController->delete($_GET["id"]);
 
     // Voltando pra tela anterior
-    // header("Location: ?pg=produtos");
     echo '<script type="text/javascript">
-             window.location = "?page=product";
+             window.location = "?page=products";
           </script>';
 }

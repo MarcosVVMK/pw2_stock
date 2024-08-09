@@ -9,7 +9,7 @@ CREATE TABLE product
     id INT NOT NULL AUTO_INCREMENT,
     name        VARCHAR(32),
     description VARCHAR(256),
-    FOREIGN KEY (id) REFERENCES category (id),
+    FOREIGN KEY (id_category) REFERENCES category (id),
     price       DOUBLE
 
 );

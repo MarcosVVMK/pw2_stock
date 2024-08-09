@@ -8,7 +8,6 @@ class UserController
     public function login( $email, $password ): bool
     {
         try {
-
             $conn = Connection::getInstance();
 
             $stmt = $conn->prepare("SELECT * FROM user WHERE email = :email" );
@@ -31,7 +30,10 @@ class UserController
                     $_SESSION['userId'] = $user->getUserId();
                     $_SESSION['name']   = $user->getName();
                     $_SESSION['email'] = $user->getEmail();
-                    header("Location: ../dashboard.php");
+
+                    echo '<script type="text/javascript">window.location = "?page=dashboard";</script>';
+                    //echo '<script type="text/javascript">window.location = "?page=products";</script>';
+
                 }else{
                     $_SESSION['message'] = 'Senha incorreta!';
                 }

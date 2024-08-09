@@ -2,8 +2,8 @@
 require_once "controllers/CategoryController.php";
 require_once "models/Category.php";
 
-$controller = new CategoryController();
-$categories = $controller->findAll();
+$categoryController = new CategoryController();
+$categories = $categoryController->findAll();
 
 // Verificar se existe uma mensagem definida na sessão
 if (isset($_SESSION['message'])) {
