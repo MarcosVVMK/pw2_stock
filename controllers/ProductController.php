@@ -18,6 +18,7 @@ class ProductController
         while($product = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $products[] = new Product($product["id"], $product["name"], $product["description"], $categoryController->findById($product["id_category"]), $product["price"]);
         }
+        var_dump($products);
         return $products;
     }
 
@@ -52,7 +53,7 @@ class ProductController
             $description = $product->getDescription();
             $category = $product->getCategory()->getId();
             $price = $product->getPrice();
-            $id = $product->getProductId();
+            $id = $product->getId();
             $stmt = $connection->prepare("UPDATE product SET name = :name, description = :description, price = :price, id_category = :category  WHERE id = :id");
             $stmt->bindParam(":name", $name);
             $stmt->bindParam(":description", $description);

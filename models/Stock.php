@@ -1,49 +1,56 @@
 <?php
 
-namespace models;
-
 class Stock
 {
-    private $stockId;
+    private int $stockId;
 
-    private $product;
+    private Product $product;
 
-    private $quantity;
+    private int $quantity;
 
     function __construct( $stockId, Product $product, $quantity )
     {
-        $this->stockId       = $stockId;
-        $this->product  = $product;
-        $this->quantity = $quantity;
+        $this->setStockId($stockId);
+        $this->setProduct($product);
+        $this->setQuantity($quantity);
     }
 
-    public function getStockId()
+    public function getStockId(): int
     {
         return $this->stockId;
     }
 
-    public function setStockId($stockId)
+    private function setStockId($stockId)
     {
         $this->stockId = $stockId;
     }
 
-    public function getProduct()
+    public function getProduct(): Product
     {
         return $this->product;
     }
 
-    public function setProduct(Product $product)
+    private function setProduct(Product $product)
     {
         $this->product = $product;
     }
 
-    public function getQuantity()
+    public function getQuantity(): int
     {
         return $this->quantity;
     }
 
-    public function setQuantity($quantity)
+    private function setQuantity($quantity)
     {
         $this->quantity = $quantity;
+    }
+
+    public function toString(): array
+    {
+        return [
+            "stockId" => $this->getStockId(),
+            "product" => $this->getProduct()->toString(),
+            "quantity" => $this->getQuantity()
+        ];
     }
 }

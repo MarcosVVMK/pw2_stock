@@ -4,71 +4,71 @@
  */
 class Product
 {
-    private $productId;
+    private int $id;
 
-    private $name;
+    private string $name;
 
-    private $description;
+    private string $description;
 
-    private $category;
+    private Category $category;
 
-    private $price;
+    private float $price;
 
-    function __construct( $productId, $name, $description, Category $category, $price )
+    function __construct( int $id, string $name, string $description, Category $category, float $price )
     {
-        $this->$productId   = $productId;
-        $this->name          = $name;
-        $this->description   = $description;
-        $this->category     = $category;
-        $this->price        = $price;
+        $this->setId($id);
+        $this->setName($name);
+        $this->setDescription($description);
+        $this->setCategoryId($category);
+        $this->setPrice($price);
     }
 
-    public function getProductId()
+    public function getId(): int
     {
-        return $this->productId;
+        return $this->id;
     }
 
-    public function setProductId($productId)
+    private function setId($id): void
     {
-        $this->productId = $productId;
+        $this->id = $id;
     }
 
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    public function setName($name)
+    private function setName($name): void
     {
         $this->name = $name;
     }
 
-    public function getDescription()
+    public function getDescription(): string
     {
         return $this->description;
     }
 
-    public function setDescription($description)
+    private function setDescription($description): void
     {
         $this->description = $description;
     }
 
-    public function getCategory()
+    public function getCategory(): Category
     {
         return $this->category;
     }
 
-    public function setCategoryId( Category $category )
+    private function setCategoryId( Category $category )
     {
         $this->category = $category;
     }
 
-    public function getPrice()
+    public function getPrice(): float
     {
         return $this->price;
     }
 
-    public function setPrice($price)
+    private function setPrice($price)
     {
         $this->price = $price;
     }
@@ -76,11 +76,11 @@ class Product
     public function toString(): array
     {
         return [
-            "productId" => $this->productId,
-            "name" => $this->name,
-            "description" => $this->description,
-            "category" => $this->category,
-            "price" => $this->price
+            "id"            => $this->getId(),
+            "name"          => $this->getName(),
+            "description"   => $this->getDescription(),
+            "category"      => $this->getCategory(),
+            "price"         => $this->getPrice()
         ];
     }
 }

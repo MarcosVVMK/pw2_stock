@@ -2,35 +2,41 @@
 
 class Category
 {
-    private $id;
-    private $name;
+    private int $id;
+    private string $name;
 
-    function __construct( $id, $name )
+    function __construct( int $id, string $name )
     {
-        $this->id   = $id;
-        $this->name = $name;
+        $this->setId($id);
+        $this->setName($name);
     }
 
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function setId($id)
+    private function setId($id): void
     {
         $this->id = $id;
     }
 
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    public function setName($name)
+    private function setName($name): void
     {
         $this->name = $name;
     }
 
-
+    public function toString(): array
+    {
+        return [
+            "id" => $this->getId(),
+            "name" => $this->getName()
+        ];
+    }
 
 }

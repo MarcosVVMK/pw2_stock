@@ -3,9 +3,9 @@
 require_once "controllers/ProductController.php";
 require_once "controllers/CategoryController.php";
 // Inicia a sessão
-if (isset($_GET["productId"])) {
+if (isset($_GET["id"])) {
     $productController = new ProductController();
-    $product = $productController->findById($_GET["productId"]);
+    $product = $productController->findById($_GET["id"]);
 }
 
 if (
@@ -29,8 +29,8 @@ if (
     }
 
     // Salvando ou Atualizando Produto
-    if (isset($_GET["productId"])) {
-        $product->setProductId($_GET["productId"]);
+    if (isset($_GET["id"])) {
+        $product->setId($_GET["id"]);
         $productController->update($product);
     } else {
         $productController->save($product);
@@ -58,16 +58,16 @@ if (
             <label for="description">Descrição</label>
             <input type="text" class="form-control" id="description" name="description"
                    value="<?php echo isset($product) ? $product->getDescription() : ''; ?>">
-            <label for="category">Categoria</label>
-            <select class="form-control" id="category" name="id_category">
+            <label for="category">Produto</label>
+            <select class="form-control" id="product" name="id_product">
                 <?php
-                $categoryController = new CategoryController();
-                $categories = $categoryController->findAll();
+                $productController = new ProductController();
+                $products = $productController->findAll();
 
-                foreach ($categories as $category):
-                    $selected = (isset($product) && $product->getCategory()->getId() == $category->getId()) ? "selected" : "";
+                foreach ($products as $product):
+                    $selected = (isset($product) && $product->getCategory()->getId() == $product->getId()) ? "selected" : "";
 
-                    echo "<option value=" . $category->getId() . ">" . $category->getName() . "</option>";
+                    echo "<option value=" . $product->getId() . ">" . $product->getName() . "</option>";
                 endforeach;
                 ?>
             </select>

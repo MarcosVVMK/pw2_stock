@@ -2,58 +2,67 @@
 
 class User
 {
-    private $userId;
-    private $name;
-    private $email;
-    private $password;
+    private int $userId;
+    private string $name;
+    private string $email;
+    private string $password;
 
-    public function __construct( $userId, $name, $email, $password)
+    public function __construct( int $userId, string $name, string $email, string $password)
     {
-        $this->userId   = $userId;
-        $this->name     = $name;
-        $this->email    = $email;
-        $this->password = $password;
+        $this->setUserId($userId);
+        $this->setName($name);
+        $this->setEmail($email);
+        $this->setPassword($password);
     }
 
-    public function getUserId()
+    public function getUserId(): int
     {
         return $this->userId;
     }
 
-    public function setUserId($userId)
+    private function setUserId($userId)
     {
         $this->userId = $userId;
     }
 
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    public function setName($name)
+    private function setName($name)
     {
         $this->name = $name;
     }
 
-    public function getEmail()
+    public function getEmail(): string
     {
         return $this->email;
     }
 
-    public function setEmail($email)
+    private function setEmail($email)
     {
         $this->email = $email;
     }
 
-    public function getPassword()
+    public function getPassword(): string
     {
         return $this->password;
     }
 
-    public function setPassword($password)
+    private function setPassword($password)
     {
         $this->password = $password;
     }
 
+    public function toString(): array
+    {
+        return [
+            "userId" => $this->getUserId(),
+            "name" => $this->getName(),
+            "email" => $this->getEmail(),
+            "password" => $this->getPassword()
+        ];
+    }
 
 }

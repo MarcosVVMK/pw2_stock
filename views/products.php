@@ -27,15 +27,15 @@ if (isset($_SESSION['message'])) {
                 </tr>
                 </thead>
                 <tbody>
-                <?php  foreach ($products as $product) : ?>
+                <?php  foreach ($products as $product): ?>
                     <tr>
-                        <td><?php echo htmlspecialchars($product->getProductId()); ?></td>
+                        <td><?php echo htmlspecialchars($product->getId()); ?></td>
                         <td><?php echo htmlspecialchars($product->getName()); ?></td>
                         <td>
-                            <a class="" href="?page=form_product&id=<?php echo $product->getProductId(); ?>">
+                            <a class="" href="?page=form_product&id=<?php echo $product->getId(); ?>">
                                 <i class="fas fa-eye"></i>
                             </a>
-                            <a class="" href="?page=delete_product&id=<?php echo $product->getProductId(); ?>" onclick="return confirm('Tem certeza que deseja excluir esta categoria?')">
+                            <a class="" href="?page=delete_product&id=<?php echo $product->getId(); ?>" onclick="return confirm('Tem certeza que deseja excluir esta categoria?')">
                                 <i class="fas fa-trash-alt"></i>
                             </a>
                         </td>
