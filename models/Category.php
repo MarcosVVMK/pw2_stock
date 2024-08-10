@@ -16,7 +16,7 @@ class Category
         return $this->id;
     }
 
-    private function setId($id): void
+    public function setId($id): void
     {
         $this->id = $id;
     }

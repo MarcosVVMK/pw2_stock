@@ -32,10 +32,10 @@ if (isset($_SESSION['message'])) {
                         <td><?php echo htmlspecialchars($category->getId()); ?></td>
                         <td><?php echo htmlspecialchars($category->getName()); ?></td>
                         <td>
-                            <a class="" href="?page=form_categoria&id=<?php echo $category->getId(); ?>">
+                            <a class="" href="?page=form_category&id=<?php echo $category->getId(); ?>">
                                 <i class="fas fa-eye"></i>
                             </a>
-                            <a class="" href="?page=delete_categoria&id=<?php echo $category->getId(); ?>" onclick="return confirm('Tem certeza que deseja excluir esta categoria?')">
+                            <a class="" href="?page=delete_category&id=<?php echo $category->getId(); ?>" onclick="return confirm('Tem certeza que deseja excluir esta categoria?')">
                                 <i class="fas fa-trash-alt"></i>
                             </a>
                         </td>

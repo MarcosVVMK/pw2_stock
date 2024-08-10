@@ -16,13 +16,16 @@ if (isset($_SESSION['message'])) {
         <div class="col">
             <div class="d-flex justify-content-between mb-3">
                 <h1 class="text-center mb-0">Lista de Produtos</h1>
-                <a href="?page=form_products" class="btn btn-success" role="button">Cadastrar</a>
+                <a href="?page=form_product" class="btn btn-success" role="button">Cadastrar</a>
             </div>
             <table class="table">
                 <thead>
                 <tr>
                     <th>ID</th>
                     <th>Nome</th>
+                    <th>Descrição</th>
+                    <th>Categoria</th>
+                    <th>Preço</th>
                     <th>Ações</th>
                 </tr>
                 </thead>
@@ -31,6 +34,9 @@ if (isset($_SESSION['message'])) {
                     <tr>
                         <td><?php echo htmlspecialchars($product->getId()); ?></td>
                         <td><?php echo htmlspecialchars($product->getName()); ?></td>
+                        <td><?php echo htmlspecialchars($product->getDescription()); ?></td>
+                        <td><?php echo htmlspecialchars($product->getCategory()->getName()); ?></td>
+                        <td><?php echo htmlspecialchars($product->getPrice()); ?></td>
                         <td>
                             <a class="" href="?page=form_product&id=<?php echo $product->getId(); ?>">
                                 <i class="fas fa-eye"></i>

@@ -2,7 +2,7 @@
 require_once __DIR__ . "/../controllers/CategoryController.php";
 
 // Inicia a sessão
-if (isset($_GET["categoryId"])) {
+if (isset($_GET["id"])) {
     $categoryController = new CategoryController();
     $category = $categoryController->findById($_GET["id"]);
 }
@@ -12,11 +12,11 @@ if (isset($_POST["name"])) {
     $categoryController = new CategoryController();
 
     // Construindo o Categoria
-    $category = new Category(null, $_POST["name"]);
+    $category = new Category(0, $_POST["name"]);
 
     // Salvando ou Atualizando Categoria
     if (isset($_GET["id"])) {
-        $category->setId($_GET["id"]);
+        $category->setId( (int) $_GET["id"]);
         $categoryController->update($category);
     } else {
         $categoryController->save($category);

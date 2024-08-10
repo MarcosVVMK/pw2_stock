@@ -18,7 +18,6 @@ class ProductController
         while($product = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $products[] = new Product($product["id"], $product["name"], $product["description"], $categoryController->findById($product["id_category"]), $product["price"]);
         }
-        var_dump($products);
         return $products;
     }
 

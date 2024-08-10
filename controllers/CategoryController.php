@@ -54,8 +54,12 @@ class CategoryController
         }
     }
 
-    public function findById($id)
+    public function findById(int $id)
     {
+        if ($id == 0) {
+            return $id;
+        }
+
         try {
             $connection = Connection::getInstance();
 
@@ -66,7 +70,8 @@ class CategoryController
 
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            return new Category($result["id"], $result["name"]);
+            return new Category( (int) $result["id"], $result["name"] );
+
         } catch (PDOException $e) {
             echo "Erro ao buscar a categoria: " . $e->getMessage();
 
@@ -79,7 +84,7 @@ class CategoryController
             $connection = Connection::getInstance();
 
             // Excluir a Categoria
-            $stmt = $connection->prepare("DELETE FROM categoria WHERE id = :id");
+            $stmt = $connection->prepare("DELETE FROM category WHERE id = :id");
             $stmt->bindParam(":id", $id);
             $stmt->execute();
 

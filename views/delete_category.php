@@ -3,11 +3,11 @@
 require_once "controllers/CategoryController.php";
 
 if (isset($_GET["id"])) {
-    $categoryController = new ProductController();
+    $categoryController = new CategoryController();
     $categoryController->delete($_GET["id"]);
 
     // Voltando pra tela anterior
     echo '<script type="text/javascript">
-             window.location = "?page=category";
+             window.location = "?page=categories";
           </script>';
 }
