@@ -25,6 +25,6 @@ CREATE TABLE user
 (
     id INT NOT NULL AUTO_INCREMENT,
     name varchar(32),
-    email varchar(32),
+    login varchar(32),
     password varchar(16)
 );

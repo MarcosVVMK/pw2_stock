@@ -4,7 +4,6 @@ require_once "models/Category.php";
 
 $categoryController = new CategoryController();
 $categories = $categoryController->findAll();
-
 // Verificar se existe uma mensagem definida na sessão
 if (isset($_SESSION['message'])) {
     echo "<script>alert('" . $_SESSION['message'] . "')</script>";

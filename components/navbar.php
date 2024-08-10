@@ -1,4 +1,8 @@
-<?php ?>
+<?php
+require_once __DIR__ . "/../controllers/UserController.php";
+$userController = new UserController();
+$userController->verifyLogin();
+?>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         let page = new URLSearchParams(window.location.search).get("page");
@@ -28,6 +32,11 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="categories" href="?page=categories">Categorias </a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="?page=logout">Logout</a>
             </li>
         </ul>
     </div>

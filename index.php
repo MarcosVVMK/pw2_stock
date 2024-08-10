@@ -1,5 +1,6 @@
 <?php
 require_once "models/Connection.php";
+session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,6 +16,7 @@ require_once "models/Connection.php";
 </head>
 <body>
 <?php
+
 // Verifica se existe a variável PG no $_GET
 // Se existe ele pega o valor e seta na variável $page
 if(!isset($_GET["page"])){
@@ -24,7 +26,7 @@ if(!isset($_GET["page"])){
 }
 
 //Verifico se o arquivo existe antes de incluir
-if($page == "" ){
+if($page == "" || $page == "login"){
     include_once "views/login.php";
 }
 elseif(!file_exists("views/" . $page . ".php")) {
