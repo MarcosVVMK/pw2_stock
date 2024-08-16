@@ -1,5 +1,5 @@
-CREATE
-DATABASE `stock_db`;
+    CREATE
+    DATABASE `stock_db`;
 
 -- stock_db.category definition
 

@@ -31,8 +31,6 @@ class UserController
 
                     echo '<script type="text/javascript">window.location = "?page=stock";</script>';
 
-                    var_dump($_SESSION);
-
                 }else{
                     $_SESSION['message'] = 'Senha incorreta!';
                 }

@@ -1,5 +1,4 @@
 <?php
-// include_once("restrict.php");
 require_once "controllers/ProductController.php";
 require_once "controllers/CategoryController.php";
 // Inicia a sessão

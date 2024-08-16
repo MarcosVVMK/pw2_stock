@@ -20,7 +20,7 @@ class Stock
         return $this->stockId;
     }
 
-    private function setStockId($stockId)
+    public function setStockId($stockId)
     {
         $this->stockId = $stockId;
     }
@@ -30,7 +30,7 @@ class Stock
         return $this->product;
     }
 
-    private function setProduct(Product $product)
+    public function setProduct(Product $product)
     {
         $this->product = $product;
     }
@@ -40,7 +40,7 @@ class Stock
         return $this->quantity;
     }
 
-    private function setQuantity($quantity)
+    public function setQuantity($quantity)
     {
         $this->quantity = $quantity;
     }
