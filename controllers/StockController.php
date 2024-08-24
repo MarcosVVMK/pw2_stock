@@ -1,9 +1,11 @@
 <?php
 require_once "models/Stock.php";
 require_once "controllers/ProductController.php";
+require_once "controllers/TransactionsController.php";
 class StockController
 {
-    public function findAll(){
+    public function findAll(): array
+    {
         $connection = Connection::getInstance();
 
         $stmt = $connection->prepare("SELECT * FROM stock");
@@ -47,11 +49,14 @@ class StockController
     }
 
 
-    public function save(Stock $stock){
+    public function save(Stock $stock, $action){
         try{
             $connection = Connection::getInstance();
             $quantity = $stock->getQuantity();
             $product_id = $stock->getProduct()->getId();
+            $stockController = new StockController();
+
+            $original_stock_quantity = $stockController->findById($stock->getStockId())->getQuantity();
 
             $stmt = $connection->prepare("INSERT INTO stock (quantity, id_product) VALUES (:quantity, :product_id)");
             $stmt->bindParam(":quantity", $quantity);
@@ -60,6 +65,8 @@ class StockController
             $stmt->execute();
 
             $stmt->fetch(PDO::FETCH_ASSOC);
+
+            $this->setTransaction( $stock, $action, $original_stock_quantity );
 
             return $this->findById($connection->lastInsertId());
         }catch (PDOException $e){
@@ -98,22 +105,25 @@ class StockController
 
     public function addQuantity(Stock $stock, int $quantity)
     {
+        $action = 'Entrada';
         $currentStockProduct = $this->findByProductId( $stock->getProduct()->getId() );
 
         if ( empty( $currentStockProduct ) ){
 
-            return $this->save($stock);
+            return $this->save($stock, $action);
         }
 
         $total = $currentStockProduct->getQuantity() + $quantity;
 
         $stock->setQuantity( $total );
+        $stock->setStockId( $currentStockProduct->getStockId() );
 
-        return $this->update($stock);
+        return $this->update($stock, $action);
     }
 
     public function removeQuantity(Stock $stock, int $quantity)
     {
+        $action = 'Saída';
         $currentStockProduct = $this->findByProductId( $stock->getProduct()->getId() );
 
         if (
@@ -128,14 +138,17 @@ class StockController
         $total = $currentStockProduct->getQuantity() - $quantity;
 
         $stock->setQuantity( $total );
+        $stock->setStockId( $currentStockProduct->getStockId() );
 
-        return $this->update($stock);
+        return $this->update($stock, $action);
     }
-    public function update(Stock $stock){
+    public function update(Stock $stock, $action ){
         try{
             $connection = Connection::getInstance();
             $id_product = $stock->getProduct()->getId();
             $quantity   = $stock->getQuantity();
+            $stockController = new StockController();
+            $original_stock_quantity = $stockController->findByProductId($stock->getProduct()->getId())->getQuantity();
 
             $stmt = $connection->prepare("UPDATE stock SET quantity = :quantity WHERE id_product = :id_product");
 
@@ -144,13 +157,15 @@ class StockController
 
             $stmt->execute();
 
+            $this->setTransaction( $stock, $action, $original_stock_quantity );
+
             return $this->findById($connection->lastInsertId());
         }catch (PDOException $e){
             echo "Erro ao atualizar a produto: " . $e->getMessage();
         }
     }
 
-    public function delete($id)
+    public function delete($id): bool
     {
         try {
             $connection = Connection::getInstance();
@@ -171,6 +186,28 @@ class StockController
             $_SESSION['message'] = 'Erro ao excluir o estoque produto: ' . $e->getMessage();
             return false;
         }
+    }
+
+    private function setTransaction( Stock $stock, $action, $original_stock_quantity )
+    {
+        $transactionController = new TransactionsController();
+        $userController = new UserController();
+
+        if ('Entrada' === $action){
+            $stock->setQuantity( $stock->getQuantity() - $original_stock_quantity );
+        }else{
+            $stock->setQuantity( $original_stock_quantity - $stock->getQuantity() );
+        }
+
+        $transactionController->save(new Transactions(
+            0,
+            $userController->findById( $_SESSION['userId'] ),
+            $stock,
+            $stock->getProduct(),
+            new DateTime(),
+            $action,
+            $stock->getQuantity()
+        ));
     }
 
 }

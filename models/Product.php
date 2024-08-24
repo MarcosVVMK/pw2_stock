@@ -19,7 +19,7 @@ class Product
         $this->setId($id);
         $this->setName($name);
         $this->setDescription($description);
-        $this->setCategoryId($category);
+        $this->setCategory($category);
         $this->setPrice($price);
     }
 
@@ -58,7 +58,7 @@ class Product
         return $this->category;
     }
 
-    private function setCategoryId( Category $category )
+    private function setCategory( Category $category )
     {
         $this->category = $category;
     }

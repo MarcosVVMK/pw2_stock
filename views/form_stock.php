@@ -1,6 +1,7 @@
 <?php
 require_once "controllers/StockController.php";
 require_once "controllers/ProductController.php";
+require_once "controllers/TransactionsController.php";
 
 // Inicia a sessão
 if (isset($_GET["id"])) {
@@ -37,7 +38,14 @@ if (
     }elseif (isset($_POST['update'])) {
 
         $stock->setStockId((int)$_GET["id"]);
-        $stockController->update($stock);
+
+        $transactionController = new TransactionsController();
+
+        $original_stock_quantity = $stockController->findById($stock->getStockId())->getQuantity();
+
+        $action = (int) $quantity > $original_stock_quantity ? 'Entrada' : 'Saída';
+
+        $stockController->update($stock, $action);
     }
 
     // Voltando pra tela anterior

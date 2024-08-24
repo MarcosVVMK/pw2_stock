@@ -46,6 +46,31 @@ class UserController
         return true;
     }
 
+    public function findById($id){
+        try{
+            if ( 0 === (int) $id )
+            {
+                return [];
+            }
+
+            $connection = Connection::getInstance();
+
+            $stmt = $connection->prepare("SELECT * FROM user WHERE id = :id");
+            $stmt->bindParam(":id", $id);
+
+            $stmt->execute();
+
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if (! is_array( $result )){
+                return [];
+            }
+
+            return new User($result["id"], $result["name"], $result["login"], $result["password"]);
+        }catch (PDOException $e){
+            echo "Erro ao buscar produto: " . $e->getMessage();
+        }
+    }
     public function verifyLogin()
     {
         if (!isset($_SESSION['userId'])) {
