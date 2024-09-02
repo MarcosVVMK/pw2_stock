@@ -24,8 +24,9 @@ class UserController
                     $result["login"],
                     $result["password"]
                 );
-
-                if ($password === $user->getPassword() )
+                var_export($user->getPassword());
+                var_export($password);
+                if ( password_verify($password, $user->getPassword()) )
                 {
                     $this->setSession($user);
 
@@ -73,7 +74,7 @@ class UserController
     }
     public function verifyLogin()
     {
-        if (!isset($_SESSION['userId'])) {
+        if (!isset($_SESSION['userId']) && $_GET['page'] !== 'register') {
            echo '<script type="text/javascript">window.location = "?page=login";</script>';
         }
     }
@@ -88,5 +89,39 @@ class UserController
         $_SESSION['userId'] = $user->getUserId();
         $_SESSION['name']   = $user->getName();
         $_SESSION['login'] = $user->getLogin();
+    }
+
+    public function register($name, $login, $password)
+    {
+        try {
+            $conn = Connection::getInstance();
+
+            $stmt = $conn->prepare("SELECT * FROM user WHERE login = :login" );
+            $stmt->bindParam(":login", $login );
+            $stmt->execute();
+
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($result)
+            {
+                $_SESSION['message'] = 'Usuário já cadastrado!';
+            }else{
+                $hashed_password = password_hash($password, PASSWORD_BCRYPT);
+
+                $stmt = $conn->prepare("INSERT INTO user (name, login, password) VALUES (:name, :login, :password)");
+                $stmt->bindParam(":name", $name);
+                $stmt->bindParam(":login", $login);
+                $stmt->bindParam(":password", $hashed_password);
+
+                $stmt->execute();
+
+                ?> <script> alert('Usuário cadastrado com sucesso!') </script> <?php
+
+                $this->login($login, $password);
+            }
+
+        }catch (PDOException $e){
+            echo ("Erro ao buscar o usuário: " . $e->getMessage());
+        }
     }
 }

@@ -26,12 +26,15 @@ if(!isset($_GET["page"])){
 }
 
 //Verifico se o arquivo existe antes de incluir
-if($page == "" || $page == "login"){
+if($page == "" || $page == "login" ){
     include_once "views/login.php";
-}
-elseif(!file_exists("views/" . $page . ".php")) {
+}elseif ($page == "register"){
+
+    include_once "views/register.php";
+
+} elseif (!file_exists("views/" . $page . ".php")) {
     include_once "components/navbar.php";
-    //Se não existe inclui pagina de erro
+    //Se não existe inclui página de erro
     include_once "views/404.php";
 }else{
     include_once "components/navbar.php";

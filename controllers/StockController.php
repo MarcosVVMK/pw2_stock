@@ -56,7 +56,16 @@ class StockController
             $product_id = $stock->getProduct()->getId();
             $stockController = new StockController();
 
-            $original_stock_quantity = $stockController->findById($stock->getStockId())->getQuantity();
+            if ( empty( $stock->getStockId() ) ){
+
+                $original_stock_quantity = 0;
+
+            }else{
+
+                $original_stock_quantity = $stockController->findById($stock->getStockId())->getQuantity() ?? 0;
+
+            }
+
 
             $stmt = $connection->prepare("INSERT INTO stock (quantity, id_product) VALUES (:quantity, :product_id)");
             $stmt->bindParam(":quantity", $quantity);
